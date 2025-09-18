@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  cams-mock-server:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOST=0.0.0.0
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3000/health').then(res => res.ok ? process.exit(0) : process.exit(1)).catch(() => process.exit(1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    # For development with volume mounting (comment out build line above and uncomment below)
+    # image: node:18-alpine
+    # command: sh -c "npm install && npm run dev"
+    # volumes:
+    #   - .:/app
+    #   - /app/node_modules
+    # working_dir: /app

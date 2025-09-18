@@ -18,6 +18,7 @@ A mock server implementation for the CAMS Biometric Web API 2.0, built with Node
 
 - Node.js 18 or higher
 - npm
+- Docker (optional, for containerized deployment)
 
 ### Installation
 
@@ -39,8 +40,19 @@ npm test
 
 ### Start Server
 
+#### Using Node.js directly
 ```bash
 npm start
+```
+
+#### Using Docker
+```bash
+# Build and run with Docker
+docker build -t cams-mock-server .
+docker run -p 3000:3000 cams-mock-server
+
+# Or use Docker Compose
+docker-compose up
 ```
 
 The server will start on port 3000 by default.
@@ -258,6 +270,54 @@ npm run test:run
 ```bash
 npm run dev
 ```
+
+## Configuration
+
+Environment variables:
+
+- `PORT` - Server port (default: 3000)
+- `HOST` - Server host (default: 0.0.0.0)
+- `NODE_ENV` - Environment (default: development)
+
+## Docker Deployment
+
+### Building the Docker Image
+
+```bash
+docker build -t cams-mock-server .
+```
+
+### Running with Docker
+
+```bash
+# Run on default port 3000
+docker run -p 3000:3000 cams-mock-server
+
+# Run on custom port
+docker run -p 8080:3000 -e PORT=3000 cams-mock-server
+
+# Run with custom environment variables
+docker run -p 3000:3000 -e NODE_ENV=production cams-mock-server
+```
+
+### Using Docker Compose
+
+```bash
+# Start the service
+docker-compose up
+
+# Start in background
+docker-compose up -d
+
+# Stop the service
+docker-compose down
+```
+
+The Docker image includes:
+- Multi-stage build for optimized size
+- Non-root user for security
+- Health checks built-in
+- Production dependencies only in final image
 
 ## Configuration
 
