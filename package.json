@@ -1,0 +1,31 @@
+{
+  "name": "cams-mock-server",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc && node dist/index.js",
+    "start": "node dist/index.js",
+    "test": "vitest",
+    "test:run": "vitest run"
+  },
+  "keywords": ["cams", "biometric", "mock", "server", "api"],
+  "author": "",
+  "license": "ISC",
+  "description": "Mock server for CAMS Biometric Web API 2.0",
+  "dependencies": {
+    "@fastify/formbody": "^8.0.2",
+    "fastify": "^5.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.5.2",
+    "@types/supertest": "^6.0.3",
+    "supertest": "^7.1.4",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}
