@@ -119,18 +119,21 @@ export function build(): FastifyInstance {
         hasOperationData: !!ApiRequestInfo.OperationData
       }, 'Processing CAMS API request');
 
-      // For CallBack API, always return { status: "done" }
-      const response: CallBackResponse = { status: "done" };
-      
+      // Return success in RESTful API format
       reply.status(200);
-      return response;
+      return {
+        StatusCode: 0,
+        Status: "Success",
+        RequestedOperation: ApiRequestInfo.Operation,
+        OperationReferenceId: ApiRequestInfo.OperationReferenceId
+      };
 
     } catch (error) {
       fastify.log.error(error, 'Unexpected error processing CAMS API request');
       reply.status(500);
       return {
         error: "Internal server error",
-        statusCode: 999,
+        StatusCode: 999,
         message: "An unexpected error occurred"
       };
     }
